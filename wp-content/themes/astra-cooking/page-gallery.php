@@ -34,7 +34,7 @@ get_header(); ?>
       <div class="card">
         <div class="card-inner">
           <div class="card-front">
-                <img src="<?= esc_url($img_url); ?>" alt="<?= esc_attr($notes ?: 'Food photo'); ?>" />
+            <img src="<?= esc_url($img_url); ?>" alt="<?= esc_attr($notes ?: 'Food photo'); ?>" />
           </div>
           <div class="card-back">
             <p><?= esc_html($notes ?: 'No notes yet.') ?></p>
@@ -45,12 +45,23 @@ get_header(); ?>
   </div>
 </div>
 
+<!-- Flip card interaction -->
 <script>
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
     });
   });
+</script>
+
+<!-- Back to Top  -->
+<button id="backToTop">Top</button>
+<script>
+  window.addEventListener('scroll', function () {
+    const btn = document.getElementById('backToTop');
+    btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+  });
+  document.getElementById('backToTop').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
 
 <?php get_footer(); ?>

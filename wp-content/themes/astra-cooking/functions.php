@@ -42,21 +42,18 @@ function cooking_create_gallery_page() {
 }
 add_action('after_setup_theme', 'cooking_create_gallery_page');
 
-// ✅ This disables Astra's full header/nav/footer on the gallery page only
 function cooking_disable_nav_keep_title() {
     if (is_page_template('page-gallery.php')) {
-        // Fully strip Astra markup
         remove_all_actions('astra_header');
         remove_all_actions('astra_masthead');
         remove_all_actions('astra_footer');
 
-        // Print only site title manually
         add_action('wp_head', function () {
             echo '<style>.site-header, .main-header-bar, .ast-site-identity { display: none !important; }</style>';
         });
 
         add_action('wp_body_open', function () {
-            echo '<h1 style="text-align:center; margin: 40px 0; font-family: Crimson Pro, serif;">' . get_bloginfo('name') . '</h1>';
+            echo '<h1 class="custom-gallery-title">' . esc_html(get_bloginfo('name')) . '</h1>';
         });
     }
 }
