@@ -1,14 +1,31 @@
 <?php get_header(); ?>
 
+<form method="get" class="search-bar" style="text-align:center; margin-bottom: 30px;">
+  <input type="text" name="s" placeholder="Search my cooking..." value="<?php the_search_query(); ?>" />
+  <button type="submit">Search</button>
+</form>
+
 <div class="gallery">
 
   <?php
-  $images = get_posts([
+
+  $search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+    
+  $args = [
     'post_type' => 'attachment',
     'post_mime_type' => 'image',
     'post_status' => 'inherit',
     'posts_per_page' => -1,
-  ]);
+    ];
+
+    $images = get_post($args);
+
+    if ($search_query) {
+        $images = array_filter($images, function ($image) use ($search_query) {
+            $note = get_post_meta($image->ID, 'food_notes', true);
+            return stripos($note, $search_query) !== false;
+        });
+    }   
 
   foreach ($images as $image) {
     $notes = get_post_meta($image->ID, 'food_notes', true);

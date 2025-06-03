@@ -1,0 +1,79 @@
+/*
+Theme Name: Astra Cooking
+Template: astra
+Author: Henrique Custodio
+Version: 1.0
+Description: A minimal Astra-based food photo gallery theme.
+*/
+
+body {
+  font-family: 'Crimson Pro', serif;
+  background: #f8f4f0;
+  margin: 0;
+  padding: 40px;
+  color: #333;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  height: 350px;
+  perspective: 1200px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.card .front,
+.card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  border-radius: 12px;
+}
+
+.card .front {
+  z-index: 2;
+}
+
+.card .front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.card .back {
+  background-color: #fff;
+  color: #333;
+  padding: 25px;
+  box-sizing: border-box;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.card.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .back {
+  transform: rotateY(0deg);
+}
